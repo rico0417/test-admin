@@ -144,7 +144,7 @@ export function getTimeState() {
 export function getBrowserLang() {
 	let browserLang = navigator.language ? navigator.language : navigator.browserLanguage;
 	let defaultBrowserLang = "";
-	if (browserLang.toLowerCase() === "cn" || browserLang.toLowerCase() === "zh" || browserLang.toLowerCase() === "zh-cn") {
+	if (["cn", "zh", "zh-cn"].includes(browserLang.toLowerCase())) {
 		defaultBrowserLang = "zh";
 	} else {
 		defaultBrowserLang = "en";
