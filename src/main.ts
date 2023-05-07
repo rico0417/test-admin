@@ -6,8 +6,6 @@ import "@/styles/reset.scss";
 import "@/styles/common.scss";
 // iconfont css
 import "@/assets/iconfont/iconfont.scss";
-// font css
-import "@/assets/fonts/font.scss";
 // custom directives
 import directives from "@/directives/index";
 // vue Router

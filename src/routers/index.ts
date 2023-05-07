@@ -72,6 +72,7 @@ router.beforeEach(async (to, from, next) => {
  * */
 export const resetRouter = () => {
 	const authStore = AuthStore();
+	// 将一维数组路由里的路由全部移除出路由系统
 	authStore.flatMenuListGet.forEach(route => {
 		const { name } = route;
 		if (name && router.hasRoute(name)) router.removeRoute(name);
