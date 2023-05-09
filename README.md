@@ -9,3 +9,10 @@
 计划：
 [] webComponent
 [] 单例设计模式-弹窗 https://www.douyin.com/user/self?modal_id=7194829419003891005&showTab=favorite_collection
+
+---
+
+1.vue3 在 setup 语法糖里添加 name。
+https://github.com/chenxch/vite-plugin-vue-setup-extend-plus
+
+---
