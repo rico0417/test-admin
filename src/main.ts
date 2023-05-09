@@ -22,8 +22,9 @@ import errorHandler from "@/utils/errorHandler";
 import { installElementPlus, installElementPlusIcon } from "@/plugins/installElementPlus";
 
 const app = createApp(App);
-
+// 全局代码错误捕捉（用于为应用内抛出的未捕获错误指定一个全局处理函数）
 app.config.errorHandler = errorHandler;
+
 installElementPlus(app);
 installElementPlusIcon(app);
 app.use(router).use(i18n).use(pinia).use(directives).use(svgIcon).mount("#app");

@@ -2,6 +2,9 @@ import { ElNotification } from "element-plus";
 
 /**
  * @description 全局代码错误捕捉
+ * 错误处理器接收三个参数：错误对象、触发该错误的组件实例和一个指出错误来源类型信息的字符串
+ * 对于生产环境后面两个参数可以不用展示
+ * https://cn.vuejs.org/api/application.html#app-config-errorhandler
  * */
 const errorHandler = (error: any) => {
 	// 过滤 HTTP 请求错误
