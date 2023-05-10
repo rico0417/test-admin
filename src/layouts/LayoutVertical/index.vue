@@ -5,7 +5,7 @@
 			<div class="menu" :style="{ width: isCollapse ? '65px' : '210px' }">
 				<div class="logo flx-center">
 					<img src="@/assets/images/logo.svg" alt="logo" />
-					<span v-show="!isCollapse">Geeker Admin</span>
+					<span v-show="!isCollapse">{{ title }}</span>
 				</div>
 				<el-scrollbar>
 					<el-menu
@@ -49,6 +49,7 @@ const globalStore = GlobalStore();
 const activeMenu = computed(() => (route.meta.activeMenu ? route.meta.activeMenu : route.path));
 const menuList = computed(() => authStore.showMenuListGet);
 const isCollapse = computed(() => globalStore.themeConfig.isCollapse);
+const title = import.meta.env.VITE_GLOB_APP_TITLE;
 </script>
 
 <style scoped lang="scss">

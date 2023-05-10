@@ -1,23 +1,27 @@
-<!-- 💥 这里是一次性加载 LayoutComponents -->
+<!-- 💥 这里是异步加载 LayoutComponents -->
 <template>
-	<component :is="LayoutComponents[themeConfig.layout]" />
+	<suspense>
+		<template #default>
+			<component :is="LayoutComponents[themeConfig.layout]" />
+		</template>
+		<template #fallback>
+			<Loading />
+		</template>
+	</suspense>
 	<ThemeDrawer />
 </template>
 
 <script setup lang="ts" name="layout">
-import { computed, type Component } from "vue";
+import { computed, defineAsyncComponent, type Component } from "vue";
 import { GlobalStore } from "@/stores";
+import Loading from "@/components/Loading/index.vue";
 import ThemeDrawer from "./components/ThemeDrawer/index.vue";
-import LayoutVertical from "./LayoutVertical/index.vue";
-import LayoutClassic from "./LayoutClassic/index.vue";
-import LayoutTransverse from "./LayoutTransverse/index.vue";
-import LayoutColumns from "./LayoutColumns/index.vue";
 
 const LayoutComponents: { [key: string]: Component } = {
-	vertical: LayoutVertical,
-	classic: LayoutClassic,
-	transverse: LayoutTransverse,
-	columns: LayoutColumns
+	vertical: defineAsyncComponent(() => import("./LayoutVertical/index.vue")),
+	classic: defineAsyncComponent(() => import("./LayoutClassic/index.vue")),
+	transverse: defineAsyncComponent(() => import("./LayoutTransverse/index.vue")),
+	columns: defineAsyncComponent(() => import("./LayoutColumns/index.vue"))
 };
 
 const globalStore = GlobalStore();

@@ -4,7 +4,7 @@
 		<el-header>
 			<div class="logo flx-center">
 				<img src="@/assets/images/logo.svg" alt="logo" />
-				<span>Geeker Admin</span>
+				<span>{{ title }}</span>
 			</div>
 			<el-menu
 				mode="horizontal"
@@ -60,6 +60,7 @@ const handleClickMenu = (subItem: Menu.MenuOptions) => {
 	if (subItem.meta.isLink) return window.open(subItem.meta.isLink, "_blank");
 	router.push(subItem.path);
 };
+const title = import.meta.env.VITE_GLOB_APP_TITLE;
 </script>
 
 <style scoped lang="scss">
