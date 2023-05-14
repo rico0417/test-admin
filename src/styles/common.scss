@@ -14,6 +14,12 @@
 	align-items: center;
 }
 
+.flex-column-center {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+}
+
 /* clearfix */
 .clearfix::after {
 	display: block;

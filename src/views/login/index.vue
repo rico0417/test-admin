@@ -1,15 +1,13 @@
 <template>
-	<div class="login-container flx-center">
-		<div class="login-box">
-			<SwitchDark class="dark" />
-			<div class="login-left">
-				<img src="@/assets/images/login_left.png" alt="login" />
+	<div class="login-container">
+		<div class="login-card">
+			<!-- 左侧说明 -->
+			<div class="flex-column-center" style="justify-content: space-around">
+				<p style="font-size: 40px; width: 409px; line-height: 56px; color: #fff">这里是文字示例，最多显示两行折行</p>
+				<img src="@/assets/images/login_pic.svg" />
 			</div>
-			<div class="login-form">
-				<div class="login-logo">
-					<img class="login-icon" src="@/assets/images/logo.svg" alt="" />
-					<h2 class="logo-text">Geeker-Admin</h2>
-				</div>
+			<!-- 右侧登录框 -->
+			<div>
 				<LoginForm />
 			</div>
 		</div>
@@ -17,7 +15,7 @@
 </template>
 
 <script setup lang="ts" name="login">
-import SwitchDark from "@/components/SwitchDark/index.vue";
+// import SwitchDark from "@/components/SwitchDark/index.vue";
 import LoginForm from "./components/LoginForm.vue";
 </script>
 

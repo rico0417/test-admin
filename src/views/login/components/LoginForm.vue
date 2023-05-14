@@ -1,25 +1,30 @@
 <template>
-	<el-form ref="loginFormRef" :model="loginForm" :rules="loginRules" size="large">
-		<el-form-item prop="username">
-			<el-input v-model="loginForm.username" placeholder="用户名：admin / user">
-				<template #prefix>
-					<el-icon class="el-input__icon"><user /></el-icon>
-				</template>
-			</el-input>
-		</el-form-item>
-		<el-form-item prop="password">
-			<el-input type="password" v-model="loginForm.password" placeholder="密码：123456" show-password autocomplete="new-password">
-				<template #prefix>
-					<el-icon class="el-input__icon"><lock /></el-icon>
-				</template>
-			</el-input>
-		</el-form-item>
-	</el-form>
-	<div class="login-btn">
-		<el-button :icon="CircleClose" round @click="resetForm(loginFormRef)" size="large">重置</el-button>
-		<el-button :icon="UserFilled" round @click="login(loginFormRef)" size="large" type="primary" :loading="loading">
-			登录
-		</el-button>
+	<div class="flex-column-center" style="margin-top: 113px">
+		<div class="welcome-title">欢迎登录</div>
+		<el-form ref="loginFormRef" label-position="top" :model="loginForm" :rules="loginRules" size="large">
+			<div class="login-label">用户名</div>
+			<el-form-item>
+				<el-input class="login-input" disabled v-model="loginForm.username" placeholder="用户名：admin / user"> </el-input>
+			</el-form-item>
+			<div class="login-label">密码</div>
+			<el-form-item>
+				<el-input
+					class="login-input"
+					type="password"
+					v-model="loginForm.password"
+					show-password
+					disabled
+					autocomplete="new-password"
+				></el-input>
+			</el-form-item>
+			<div class="flx-justify-between login-options">
+				<el-checkbox label="记住我" size="large" />
+				<span>忘记密码?</span>
+			</div>
+		</el-form>
+		<div class="mt30">
+			<el-button @click="login(loginFormRef)" size="large" type="primary" :loading="loading"> 立即登录 </el-button>
+		</div>
 	</div>
 </template>
 
@@ -35,7 +40,6 @@ import { KeepAliveStore } from "@/stores/modules/keepAlive";
 import { getTimeState } from "@/utils/util";
 import { HOME_URL } from "@/config/config";
 import { initDynamicRouter } from "@/routers/modules/dynamicRouter";
-import { CircleClose, UserFilled } from "@element-plus/icons-vue";
 import type { ElForm } from "element-plus";
 import md5 from "js-md5";
 
@@ -54,6 +58,7 @@ const loginRules = reactive({
 
 const loading = ref(false);
 const loginForm = reactive<Login.ReqLoginForm>({ username: "", password: "" });
+
 const login = (formEl: FormInstance | undefined) => {
 	if (!formEl) return;
 	formEl.validate(async valid => {
@@ -85,12 +90,6 @@ const login = (formEl: FormInstance | undefined) => {
 	});
 };
 
-// resetForm
-const resetForm = (formEl: FormInstance | undefined) => {
-	if (!formEl) return;
-	formEl.resetFields();
-};
-
 onMounted(() => {
 	// 监听enter事件（调用登录）
 	document.onkeydown = (e: any) => {
@@ -103,6 +102,29 @@ onMounted(() => {
 });
 </script>
 
-<style scoped lang="scss">
+<!-- <style scoped lang="scss">
 @import "../index.scss";
+</style> -->
+<style scoped lang="scss">
+.welcome-title {
+	font-size: 22px;
+	color: #0a1629;
+	margin-bottom: 34px;
+}
+.login-label {
+	color: #7d8592;
+	margin-bottom: 8px;
+	font-size: 14px;
+}
+.login-input {
+	width: 403px;
+	height: 50px;
+}
+
+.login-options {
+	color: #7d8592;
+	& > span:last-child {
+		cursor: pointer;
+	}
+}
 </style>
