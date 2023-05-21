@@ -3,17 +3,16 @@
 		<div class="welcome-title">欢迎登录</div>
 		<el-form ref="loginFormRef" label-position="top" :model="loginForm" :rules="loginRules" size="large">
 			<div class="login-label">用户名</div>
-			<el-form-item>
-				<el-input class="login-input" disabled v-model="loginForm.username" placeholder="用户名：admin / user"> </el-input>
+			<el-form-item prop="username">
+				<el-input class="login-input" v-model="loginForm.username" placeholder="用户名：admin / user"> </el-input>
 			</el-form-item>
 			<div class="login-label">密码</div>
-			<el-form-item>
+			<el-form-item prop="password">
 				<el-input
 					class="login-input"
 					type="password"
 					v-model="loginForm.password"
 					show-password
-					disabled
 					autocomplete="new-password"
 				></el-input>
 			</el-form-item>
@@ -23,7 +22,9 @@
 			</div>
 		</el-form>
 		<div class="mt30">
-			<el-button @click="login(loginFormRef)" size="large" type="primary" :loading="loading"> 立即登录 </el-button>
+			<el-button @click="login(loginFormRef)" size="large" type="primary" :loading="loading">
+				<span style="padding: 0 30px">立即登录</span>
+			</el-button>
 		</div>
 	</div>
 </template>
@@ -62,6 +63,7 @@ const loginForm = reactive<Login.ReqLoginForm>({ username: "", password: "" });
 const login = (formEl: FormInstance | undefined) => {
 	if (!formEl) return;
 	formEl.validate(async valid => {
+		console.log(valid);
 		if (!valid) return;
 		loading.value = true;
 		try {
