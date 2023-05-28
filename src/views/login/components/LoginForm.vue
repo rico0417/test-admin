@@ -1,7 +1,7 @@
 <template>
-	<div class="flex-column-center" style="margin-top: 113px">
-		<div class="welcome-title">欢迎登录</div>
-		<el-form ref="loginFormRef" label-position="top" :model="loginForm" :rules="loginRules" size="large">
+	<div class="loginForm-container">
+		<div class="login-title">欢迎登录</div>
+		<el-form style="width: 100%" ref="loginFormRef" label-position="top" :model="loginForm" :rules="loginRules" size="large">
 			<div class="login-label">用户名</div>
 			<el-form-item prop="username">
 				<el-input class="login-input" v-model="loginForm.username" placeholder="用户名：admin / user"> </el-input>
@@ -18,13 +18,12 @@
 			</el-form-item>
 			<div class="flx-justify-between login-options">
 				<el-checkbox label="记住我" size="large" />
-				<span>忘记密码?</span>
+				<span @click="forgotPassword">忘记密码?</span>
 			</div>
 		</el-form>
-		<div class="mt30">
-			<el-button @click="login(loginFormRef)" size="large" type="primary" :loading="loading">
-				<span style="padding: 0 30px">立即登录</span>
-			</el-button>
+		<div class="login-btn">
+			<el-button @click="login(loginFormRef)" size="large" type="primary" :loading="loading">立即登录</el-button>
+			<p>还没有账号？<span @click="toggleForm">去注册</span></p>
 		</div>
 	</div>
 </template>
@@ -43,6 +42,7 @@ import { HOME_URL } from "@/config/config";
 import { initDynamicRouter } from "@/routers/modules/dynamicRouter";
 import type { ElForm } from "element-plus";
 import md5 from "js-md5";
+import { ElMessage } from "element-plus";
 
 const router = useRouter();
 const tabsStore = TabsStore();
@@ -63,7 +63,6 @@ const loginForm = reactive<Login.ReqLoginForm>({ username: "", password: "" });
 const login = (formEl: FormInstance | undefined) => {
 	if (!formEl) return;
 	formEl.validate(async valid => {
-		console.log(valid);
 		if (!valid) return;
 		loading.value = true;
 		try {
@@ -102,13 +101,31 @@ onMounted(() => {
 		}
 	};
 });
+
+interface ToggleEmits {
+	(e: "toggle"): void;
+}
+const emits = defineEmits<ToggleEmits>();
+const toggleForm = () => {
+	emits("toggle");
+};
+
+const forgotPassword = () => {
+	ElMessage.error("功能暂未开放");
+};
 </script>
 
-<!-- <style scoped lang="scss">
-@import "../index.scss";
-</style> -->
 <style scoped lang="scss">
-.welcome-title {
+.loginForm-container {
+	width: 100%;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	padding: 0 60px;
+	box-sizing: border-box;
+	margin-top: 113px;
+}
+.login-title {
 	font-size: 22px;
 	color: #0a1629;
 	margin-bottom: 34px;
@@ -118,11 +135,23 @@ onMounted(() => {
 	margin-bottom: 8px;
 	font-size: 14px;
 }
-.login-input {
-	width: 403px;
-	height: 50px;
-}
 
+.login-btn {
+	margin-top: 30px;
+	text-align: center;
+	button {
+		width: 170px;
+		height: 48px;
+	}
+	p {
+		color: rgba(63, 140, 255, 1);
+		font-size: 14px;
+		span {
+			text-decoration: underline;
+			cursor: pointer;
+		}
+	}
+}
 .login-options {
 	color: #7d8592;
 	& > span:last-child {

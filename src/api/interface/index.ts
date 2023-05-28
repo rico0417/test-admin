@@ -42,6 +42,13 @@ export namespace Login {
 	export interface ResAuthButtons {
 		[key: string]: string[];
 	}
+
+	export interface RegisterForm {
+		username: string;
+		password: string;
+		email: string;
+		rePassword: string;
+	}
 }
 
 // * 用户管理模块
