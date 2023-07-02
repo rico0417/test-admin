@@ -17,3 +17,6 @@
 https://github.com/chenxch/vite-plugin-vue-setup-extend-plus
 
 ---
+
+笔记点：
+vue3 组件中的二次封装：https://blog.csdn.net/qq_40230003/article/details/131092373

@@ -4,36 +4,24 @@
 		<el-form style="width: 100%" ref="loginFormRef" label-position="top" :model="loginForm" :rules="loginRules" size="large">
 			<div class="login-label">用户名</div>
 			<el-form-item prop="username">
-				<el-input class="login-input" v-model="loginForm.username" placeholder="请输入用户名"> </el-input>
+				<solution-input v-model="loginForm.username" placeholder="请输入用户名"> </solution-input>
 			</el-form-item>
 			<div class="login-label">邮箱</div>
 			<el-form-item prop="email">
-				<el-input class="login-input" v-model="loginForm.email" placeholder="请输入邮箱"> </el-input>
+				<solution-input v-model="loginForm.email" placeholder="请输入邮箱"> </solution-input>
 			</el-form-item>
 			<div class="login-label">密码</div>
 			<el-form-item prop="password">
-				<el-input
-					class="login-input"
-					type="password"
-					v-model="loginForm.password"
-					show-password
-					autocomplete="new-password"
-				></el-input>
+				<solution-input type="password" v-model="loginForm.password" show-password autocomplete="new-password"></solution-input>
 			</el-form-item>
 			<div class="login-label">确认密码</div>
 			<el-form-item prop="rePassword">
-				<el-input
-					class="login-input"
-					type="password"
-					v-model="loginForm.rePassword"
-					show-password
-					autocomplete="new-password"
-				></el-input>
+				<solution-input type="password" v-model="loginForm.rePassword" show-password autocomplete="new-password"></solution-input>
 			</el-form-item>
 		</el-form>
 		<div class="login-btn">
-			<el-button size="large" type="success" :loading="loading" @click="toRegister">注册</el-button>
-			<el-button size="large" type="danger" :loading="loading" @click="toggleForm">返回</el-button>
+			<solution-button size="large" type="success" :loading="loading" @click="toRegister">注册</solution-button>
+			<solution-button size="large" type="danger" :loading="loading" @click="toggleForm">返回</solution-button>
 		</div>
 	</div>
 </template>
@@ -43,6 +31,8 @@ import { ref, reactive } from "vue";
 import { Login } from "@/api/interface";
 import type { ElForm } from "element-plus";
 import { ElMessage } from "element-plus";
+import SolutionButton from "@/components/SolutionUi/SolutionButton/index.vue";
+import SolutionInput from "@/components/SolutionUi/SolutionInput/index.vue";
 
 // 定义 formRef（校验规则）
 type FormInstance = InstanceType<typeof ElForm>;

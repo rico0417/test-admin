@@ -1,16 +1,18 @@
 <template>
-	<div class="dropdown-container" @click="changeDropdownType">
-		<div class="main item-style">主项目</div>
-		<hr />
-		<div style="height: 200px; overflow: auto">
-			<div class="option-item item-style">子项目</div>
-			<div class="option-item item-style">子项目</div>
-			<div class="option-item item-style">子项目</div>
-			<div class="option-item item-style">子项目</div>
-			<div class="option-item item-style">子项目</div>
-			<div class="option-item item-style">子项目</div>
-			<div class="option-item item-style">子项目</div>
-			<div class="option-item item-style">子项目</div>
+	<div class="outer-position-box">
+		<div class="dropdown-container" @click="changeDropdownType">
+			<div class="main item-style">主项目</div>
+			<hr />
+			<div style="height: 200px; overflow: auto">
+				<div class="option-item item-style">子项目</div>
+				<div class="option-item item-style">子项目</div>
+				<div class="option-item item-style">子项目</div>
+				<div class="option-item item-style">子项目</div>
+				<div class="option-item item-style">子项目</div>
+				<div class="option-item item-style">子项目</div>
+				<div class="option-item item-style">子项目</div>
+				<div class="option-item item-style">子项目</div>
+			</div>
 		</div>
 	</div>
 </template>
@@ -18,19 +20,24 @@
 <script setup lang="ts">
 import { ref } from "vue";
 const width = ref("200px");
-const height = ref("50px");
+const height = ref("48px");
 const flag = ref(false);
 const changeDropdownType = () => {
 	flag.value = !flag.value;
 	if (flag.value) {
 		height.value = "300px";
 	} else {
-		height.value = "50px";
+		height.value = "48px";
 	}
 };
 </script>
 
 <style lang="scss" scoped>
+.outer-position-box {
+	position: relative;
+	width: 200px;
+	height: 48px;
+}
 .dropdown-container {
 	position: absolute;
 	width: v-bind(width);

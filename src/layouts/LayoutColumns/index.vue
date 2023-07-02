@@ -1,123 +1,77 @@
 <!-- 分栏布局 -->
 <template>
-	<el-container class="layout">
-		<div class="aside-split">
-			<div class="logo flx-center">
-				<img src="@/assets/images/logo.svg" alt="logo" />
-			</div>
-			<el-scrollbar>
-				<div class="split-list">
-					<div
-						class="split-item"
-						:class="{ 'split-active': splitActive === item.path || `/${splitActive.split('/')[1]}` === item.path }"
-						v-for="item in menuList"
-						:key="item.path"
-						@click="changeSubMenu(item)"
-					>
-						<el-icon>
-							<component :is="item.meta.icon"></component>
-						</el-icon>
-						<span class="title">{{ item.meta.title }}</span>
-					</div>
-				</div>
-			</el-scrollbar>
-		</div>
-		<el-aside :class="{ 'not-aside': !subMenu.length }" :style="{ width: isCollapse ? '65px' : '210px' }">
-			<div class="logo flx-center">
-				<span v-show="subMenu.length">{{ isCollapse ? "G" : "Geeker Admin" }}</span>
-			</div>
-			<el-scrollbar>
-				<el-menu
-					:default-active="activeMenu"
-					:router="false"
-					:collapse="isCollapse"
-					:collapse-transition="false"
-					:unique-opened="true"
-					background-color="#ffffff"
-				>
-					<SubMenu :menuList="subMenu" />
-				</el-menu>
-			</el-scrollbar>
-		</el-aside>
+	<div class="layout-container">
 		<el-container>
-			<el-header>
-				<ToolBarLeft />
-				<ToolBarRight />
-			</el-header>
-			<Main />
+			<div class="layout-aside">
+				<solution-menu></solution-menu>
+			</div>
+			<el-container>
+				<el-header>
+					<div class="header-box">
+						<Solution-input class="search-input" placeholder="搜索">
+							<template #prefix>
+								<el-icon class="el-input__icon"><search /></el-icon>
+							</template>
+						</Solution-input>
+						<div class="header-right-box">
+							<Bell></Bell>
+							<Solution-dropdown></Solution-dropdown>
+						</div>
+					</div>
+				</el-header>
+				<el-main>
+					<!-- <div style="height: 100%; width: 100%; background-color: blue"></div> -->
+					<Main />
+				</el-main>
+			</el-container>
 		</el-container>
-	</el-container>
+	</div>
 </template>
 
 <script setup lang="ts" name="layoutColumns">
-import { ref, computed, watch } from "vue";
-import { useRoute, useRouter } from "vue-router";
-import { GlobalStore } from "@/stores";
-import { AuthStore } from "@/stores/modules/auth";
+import SolutionMenu from "@/components/SolutionUi/SolutionMenu/index.vue";
+import SolutionInput from "@/components/SolutionUi/SolutionInput/index.vue";
+import SolutionDropdown from "@/components/SolutionUi/SolutionDropdown/index.vue";
+import Bell from "./components/Bell.vue";
 import Main from "@/layouts/components/Main/index.vue";
-import ToolBarLeft from "@/layouts/components/Header/ToolBarLeft.vue";
-import ToolBarRight from "@/layouts/components/Header/ToolBarRight.vue";
-import SubMenu from "@/layouts/components/Menu/SubMenu.vue";
-
-const route = useRoute();
-const router = useRouter();
-const authStore = AuthStore();
-const globalStore = GlobalStore();
-const activeMenu = computed(() => (route.meta.activeMenu ? route.meta.activeMenu : route.path));
-const menuList = computed(() => authStore.showMenuListGet);
-const isCollapse = computed(() => globalStore.themeConfig.isCollapse);
-
-const subMenu = ref<Menu.MenuOptions[]>([]);
-const splitActive = ref<string>("");
-watch(
-	() => [menuList, route],
-	() => {
-		// 当前菜单没有数据直接 return
-		if (!menuList.value.length) return;
-		splitActive.value = route.path;
-		const menuItem = menuList.value.filter(
-			(item: Menu.MenuOptions) => route.path === item.path || `/${route.path.split("/")[1]}` === item.path
-		);
-		if (menuItem[0].children?.length) return (subMenu.value = menuItem[0].children);
-		subMenu.value = [];
-	},
-	{
-		deep: true,
-		immediate: true
-	}
-);
-
-// 切换 SubMenu
-const changeSubMenu = (item: Menu.MenuOptions) => {
-	splitActive.value = item.path;
-	if (item.children?.length) return (subMenu.value = item.children);
-	subMenu.value = [];
-	router.push(item.path);
-};
 </script>
 
-<style scoped lang="scss">
-@import "./index.scss";
-</style>
-
-<style lang="scss">
-.columns {
-	.el-menu,
-	.el-menu--popup {
-		.el-menu-item {
-			&.is-active {
-				background: var(--el-color-primary-light-9);
-				&::before {
-					position: absolute;
-					top: 0;
-					right: 0;
-					bottom: 0;
-					width: 4px;
-					content: "";
-					background: var(--el-color-primary);
-				}
+<style lang="scss" scoped>
+.layout-container {
+	padding: 20px;
+	height: 100vh;
+	width: 100vw;
+	box-sizing: border-box;
+	background-color: rgba(243, 247, 252, 1);
+}
+.el-container {
+	width: 100%;
+	height: 100%;
+	.layout-aside {
+		margin-right: 30px;
+	}
+	.el-header {
+		padding: 0;
+		.header-box {
+			display: flex;
+			align-items: center;
+			justify-content: space-between;
+			.search-input {
+				width: 412px;
+				height: 48px;
+			}
+			.header-right-box {
+				width: 280px;
+				height: 48px;
+				display: flex;
+				align-items: center;
+				justify-content: space-between;
 			}
 		}
+	}
+
+	.el-main {
+		padding: 0;
 	}
 }
 </style>

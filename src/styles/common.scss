@@ -126,3 +126,10 @@
 		padding-left: #{$i}px !important;
 	}
 }
+
+.card-hover-moveTo {
+	transition: 0.5s;
+	&:hover {
+		transform: translateY(-10px);
+	}
+}

@@ -1,6 +1,6 @@
 <template>
 	<section>
-		<div class="container">
+		<div class="container card-hover-moveTo">
 			<!-- 登录 -->
 			<div class="user signinBx">
 				<div class="imgBx">
